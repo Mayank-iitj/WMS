@@ -390,6 +390,9 @@
   <!-- Login Card -->
   <div class="card" id="loginCard">
     <h1>HR Management System</h1>
+    <div style="margin-bottom:1em; color:#3a506b; font-size:1.05em;">
+      For Admin credentials, Contact: <strong>9179184814 (MAYANK SHARMA)</strong>
+    </div>
     <form id="loginForm" autocomplete="off">
       <select id="role" required>
         <option value="">Select Role</option>
@@ -674,6 +677,7 @@
     <div class="tab-content" id="hr-admin-panel">
       <h3>Admin: Manage Employees</h3>
       <button onclick="showAddEmployeeForm()">Add Employee</button>
+      <button onclick="resetAllData()" style="background:#ef4444;color:#fff;margin-left:1em;">Reset All Data</button>
       <div id="addEmployeeForm" style="display:none; margin:1em 0;">
         <form onsubmit="addEmployee(event)">
           <input id="newEmpName" placeholder="Name" required>
@@ -986,7 +990,47 @@
       document.getElementById(tabId).classList.add('active');
       if (tabId === 'hr-admin-panel') renderAdminEmployeeTable();
     };
+
+    // Reset all demo data to initial state
+    function resetAllData() {
+      if (!confirm('Are you sure you want to reset all data? This cannot be undone.')) return;
+      // Reset demo data arrays
+      attendance = [
+        { date: '2025-06-21', status: 'Present', method: 'GPS' },
+        { date: '2025-06-20', status: 'Present', method: 'Biometric' },
+        { date: '2025-06-19', status: 'Late', method: 'PIN' },
+        { date: '2025-06-18', status: 'Absent', method: '-' }
+      ];
+      leaves = [
+        { type: 'Sick', from: '2025-06-10', to: '2025-06-12', status: 'Approved' },
+        { type: 'Casual', from: '2025-05-05', to: '2025-05-06', status: 'Rejected' }
+      ];
+      pfStatements = [
+        { date: '2025-06-01', type: 'Contribution', amount: '₹2,000' },
+        { date: '2025-05-01', type: 'Contribution', amount: '₹2,000' },
+        { date: '2025-04-01', type: 'Interest', amount: '₹500' }
+      ];
+      payrolls = [
+        { month: '2025-06', gross: '₹80,000', net: '₹72,000', status: 'Paid' },
+        { month: '2025-05', gross: '₹80,000', net: '₹72,000', status: 'Paid' }
+      ];
+      performance = [
+        { period: 'Q1 2025', score: '4.5', feedback: 'Excellent work on project delivery.' },
+        { period: 'Q4 2024', score: '4.2', feedback: 'Consistent performer.' }
+      ];
+      employees = [
+        { name: 'Amit Kumar', username: 'amitk', role: 'employee', password: 'pass123' },
+        { name: 'Priya Singh', username: 'priyas', role: 'manager', password: 'pass123' },
+        { name: 'HR Admin', username: 'hradmin', role: 'hr', password: 'admin123' }
+      ];
+      // Reload all dashboards if visible
+      loadEmployeeData();
+      renderAdminEmployeeTable();
+      document.getElementById('empLeaveStatus').textContent = "Last leave approved for 2025-06-10 to 2025-06-12";
+      document.getElementById('empAttendanceStatus').textContent = "Attendance marked at 09:01 AM (GPS)";
+      document.getElementById('empPFLoanStatus').textContent = "";
+      document.getElementById('empRegularizeStatus').textContent = "";
+      alert('All data has been reset.');
+    }
   </script>
 </body>
-
-   
